@@ -1,0 +1,45 @@
+Q1
+import numpy as np
+
+def objective_function(x):
+	return -x**2 + 4*x
+	
+def hill_climbing(initial_x,step_size,num_steps):
+	current_x=initial_x
+	for step in range(num_steps):
+		current_value=objective_function(current_x)
+		next_x=current_x+step_size
+		next_value=objective_function(next_x)
+		if next_value > current_value:
+			current_x=next_x
+	return current_x,objective_function(current_x)
+
+initial_x=0.0
+step_size=1.0
+num_steps=20
+
+result_x,result_value=hill_climbing(initial_x,step_size,num_steps)
+
+print("Maximum found at X = ",result_x)
+print("Maximum Value is ", result_value)
+
+Q2
+def dfs(graph,start,visited=None):
+    if visited is None:
+        visited =set()
+    visited.add(start)
+    print(start,end="")
+    for neighbour in graph[start]:
+        if neighbour not in visited:
+            dfs(graph,neighbour,visited)
+
+graph={
+        'A':['B','C'],
+        'B':['D'],
+        'C':['F'],
+        'D':['E'],'E':[],'F':[]
+        }
+
+start_node='A'
+print("DFS Traversal : ",end="")
+dfs(graph,start_node)
