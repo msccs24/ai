@@ -14,3 +14,4 @@ if day=='saturday'or day=='friday':
          print("It must be Holiday today!!!\n")
 elif day=='sunday'or day=='monday':
          print("Its Working day ,hope you wont be late to work\n ")
+
