@@ -1,0 +1,47 @@
+Q1
+def transform_string(original,target):
+    if len(original)!=len(target):
+        return " The length of the original and target string must be the same"
+    transformations=[]
+    common_chars=set(original).intersection(set(target))
+    if not common_chars:
+        return "no common character" 
+    for i in range(len(original)):
+        if original[i]!=target[i]:
+            transformations.append(f"Replace'{original[i]}'with'{target[i]}'at index{i}")
+            original=original[:i]+target[i]+original[i+1:]
+    if original == target:
+        return transformations
+    else:
+        return "transformation not possible"   
+              
+original_str="abcde"
+target_str="fghie"
+result=transform_string(original_str,target_str)
+print(result)
+
+Q2
+print("Water_Jug Problem")
+
+def pour(jug1,jug2):
+    max1,max2,fill=5,7,4
+    #print(JUG1 \t JUG2")
+    print(jug1,"\t",jug2)
+    if jug2 is fill:
+         return
+    elif jug2 is max2:
+         pour(0,jug1)
+    elif jug1 !=0 and jug2 is 0:
+         pour(0,jug1)
+    elif jug1 is fill:
+         pour(jug1,0)
+    elif jug1<max1:
+         pour(max1,jug2)
+    elif jug1<(max2-jug2):
+         pour(0,(jug1+jug2))
+    else:
+         pour(jug1-(max2-jug2),(max2-jug2)+jug2)
+print("jug \t jug2")
+pour(0,0)
+print("Jug is now filled with 4 litres water")
+         
