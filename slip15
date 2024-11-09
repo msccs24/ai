@@ -1,0 +1,21 @@
+Q1
+import random
+class Monkey:
+
+    def __init__(self,bananas):
+        self.bananas=bananas
+    def __repr__(self):
+        return "Monkey with %d bananas" %self.bananas
+
+monkey=[Monkey(random.randint(0,50)) for i in range(5)]
+print('random monkeys:')
+print(monkey)
+print()
+def number_of_bananas(monkey):
+    return monkey.bananas
+print("number_of_bananas(First Monkey)):",number_of_bananas(monkey[0]))   
+print()
+max_monkey=max(monkey,key=number_of_bananas)
+print('max monkey:',max_monkey) 
+
+Q2
