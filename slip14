@@ -1,0 +1,41 @@
+Q1
+def sort_sentence(sentence):
+    words = sentence.split()
+    words.sort(key=str.lower)
+
+    sorted_sentence = " ".join(words)
+    return sorted_sentence
+
+input_sentence = "This is a simple sentence to sort alphabetically"
+output_sentence = sort_sentence(input_sentence)
+print("Original sentence:", input_sentence)
+print("Sorted sentence:", output_sentence)
+
+Q2
+N=8
+def solveNQueens(board,col):
+    if col==N:
+        print(board)
+        return True
+    for i in range (N):
+        if isSafe(board,i,col):
+            board[i][col]=1
+            if solveNQueens(board,col+1):
+                return True
+            board[i][col]=0
+    return False
+
+def isSafe(board,row,col):
+    for x in range(col):
+        if board[row][x]==1:
+            return False
+    for x,y in zip(range(row,-1,-1),range(col,-1,-1)):
+        if board[x][y]==1:
+            return False
+    for x,y in zip(range(row,N,1),range(col,-1,-1)):
+        if board[x][y]==1:
+            return False
+    return True
+board=[[0 for x in range (N)] for y in range(N)]
+if not solveNQueens(board,0):
+    print("No solution found")                                                
