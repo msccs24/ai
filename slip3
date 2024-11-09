@@ -1,0 +1,32 @@
+Q1
+import string
+def remove_punctuation(text):
+
+    translator = str.maketrans('', '', string.punctuation)
+    return text.translate(translator)
+
+input_text = "Hello, world! This is a test sentence with punctuation."
+output_text = remove_punctuation(input_text)
+print("Original text:", input_text)
+print("Text without punctuation:", output_text)
+
+Q2
+def dfs(graph,start,visited=None):
+    if visited is None:
+        visited =set()
+    visited.add(start)
+    print(start,end="")
+    for neighbour in graph[start]:
+        if neighbour not in visited:
+            dfs(graph,neighbour,visited)
+
+graph={
+        'A':['B','C'],
+        'B':['D'],
+        'C':['F'],
+        'D':['E'],'E':[],'F':[]
+        }
+
+start_node='A'
+print("DFS Traversal : ",end="")
+dfs(graph,start_node)
