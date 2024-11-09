@@ -1,0 +1,30 @@
+Q1
+import calendar
+def display(year,month):
+    cal=calendar.month(year,month)
+    print(cal)
+
+year=int(input("Enter the Year : "))
+month=int(input("Enter the Month (Eg.1-12) :"))
+display(year,month)
+
+Q2
+def dfs(graph,start,visited=None):
+    if visited is None:
+        visited =set()
+    visited.add(start)
+    print(start,end="")
+    for neighbour in graph[start]:
+        if neighbour not in visited:
+            dfs(graph,neighbour,visited)
+
+graph={
+        'A':['B','C'],
+        'B':['D'],
+        'C':['F'],
+        'D':['E'],'E':[],'F':[]
+        }
+
+start_node='A'
+print("DFS Traversal : ",end="")
+dfs(graph,start_node)
