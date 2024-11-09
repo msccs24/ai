@@ -1,0 +1,42 @@
+Q1
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+
+lemmatizer = WordNetLemmatizer()
+
+def lemmatize_words(words):
+    lemmatized_words = [lemmatizer.lemmatize(word) for word in words]
+    return lemmatized_words
+
+input_words = ["running", "jumps", "easily", "fairer", "cars"]
+output_words = lemmatize_words(input_words)
+
+print("Original words:", input_words)
+print("Lemmatized words:", output_words)
+
+Q2
+from collections import deque
+def bfs(graph,start):
+    visited=set()
+    queue=deque([start])
+    traversal_order=[]
+    while queue:
+        node=queue.popleft()
+        if node not in visited:
+            visited.add(node)
+            traversal_order.append(node)
+            for neighbour in graph[node]:
+                if neighbour not in visited:
+                    queue.append(neighbour)
+    return traversal_order
+
+graph={
+        'A':['B','C'],
+        'B':['D','E'],
+        'C':['F','G'],
+        'D':[],'E':[],'F':[],'G':[]
+        }
+
+start_node='A'
+res=bfs(graph,start_node)
+print("BFS Traversal : ",res)
