@@ -1,0 +1,88 @@
+Q1
+import random
+def get_random_word():
+    words=['python','game']
+    return random.choice(words)
+    
+def display(word,guess_letter):
+    return " ".join([letter if letter in guess_letter else "_" for letter in word])
+    
+def hangman():
+    word=get_random_word()
+    guess_letter=set()
+    attempt=6
+    print("Welcome to hangman")
+    print("Guess the word:")
+    
+    while attempt>0:
+        print(display(word,guess_letter))
+        guess=input("Enter a letter:").lower()
+    
+        if len(guess)!=1 or not guess.isalpha():
+            print("Please enter a single alphabet")
+            continue
+    
+        if guess in guess_letter:
+            print("You've already guessed the letter")
+            continue
+    
+        guess_letter.add(guess)
+    
+        if guess in word:
+            print("Good guess!",guess,"is in the word")
+        
+            if all(letter is guess_letter for letter in word):
+                print("You gussed the word")
+                break
+        else:
+            attempt-=1
+            print("",guess," is not ")   
+        
+        if(attempt==0):
+            print("Game over,The word was",word)
+hangman()    
+            
+Q2
+import heapq
+def astar(graph,start_node,end_node):
+    f_distance={node:float('inf')for node in graph}
+    f_distance[start_node]=0
+
+    g_distance={node: float('inf')for node in graph}
+    g_distance[start_node]=0
+
+    came_from={node:None for node in graph}
+    came_from[start_node]=start_node
+
+    queue=[(0,start_node)]
+
+    while queue:
+        current_f_distance,current_node=heapq.heappop(queue)
+        if current_node == end_node:
+            print("Path found")
+            return f_distance,came_from
+    
+        for next_node,(weight,heuristic)in graph[current_node].items():
+            temp_g_distance = g_distance[current_node] + weight
+        
+            if temp_g_distance < g_distance[next_node]:
+                g_distance[next_node] = temp_g_distance
+                f_distance[next_node] = temp_g_distance + heuristic
+            
+                came_from[next_node] = current_node
+            
+                heapq.heappush(queue,(f_distance[next_node],next_node))
+            
+    return f_distance,came_from
+graph={
+    'A':{'B':(4,2),'C':(5,3)},
+    'B':{'D':(6,4),'E':(4,1)},
+    'C':{'E':(4,2)},
+    'D':{'F':(5,1)},
+    'E':{'F':(2,0)},
+    'F':{}
+}
+      
+f_distance,came_from=astar(graph,'A','F')
+print(f"f_distance:{f_distance}")
+print(f"came_from:{came_from}")
