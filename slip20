@@ -1,0 +1,33 @@
+Q1
+import random
+
+name=input("R!Hello, What is your name? ")
+print("Hello, My name is ",name)
+
+feeling=input("How are you Today? ")
+if "good" in feeling:
+    print("I am also feeling good")
+elif "nice" in feeling:
+    print("I am also feeling nice")
+else:
+    print("I am sorry to hear you")
+    
+favourite=input("What is your favourite color? ")
+color=['red','pink','blue']
+print("my favourite color is "+random.choice(color))        
+
+Q2
+import math
+def minimax(curDepth,nodeIndex,maxTurn,scores,targetDepth):
+    if(curDepth==targetDepth):
+        return scores[nodeIndex]
+    if(maxTurn):
+        return max(minimax(curDepth + 1, nodeIndex *2,False,scores,targetDepth),
+        minimax(curDepth + 1,nodeIndex * 2 + 1,False,scores,targetDepth))
+    else:
+        return min(minimax(curDepth + 1, nodeIndex *2,True,scores,targetDepth),
+        minimax(curDepth + 1,nodeIndex * 2 + 1,True,scores,targetDepth))       
+scores=[3,5,2,9,12,5,23,23]
+treeDepth=math.log(len(scores),2)
+print("The optimal value: ",end="")
+print(minimax(0,0,True,scores,treeDepth))        
