@@ -1,20 +1,19 @@
 Q1
-import random
-
-name=input("R!Hello, What is your name? ")
-print("Hello, My name is ",name)
-
-feeling=input("How are you Today? ")
-if "good" in feeling:
-    print("I am also feeling good")
-elif "nice" in feeling:
-    print("I am also feeling nice")
-else:
-    print("I am sorry to hear you")
-    
-favourite=input("What is your favourite color? ")
-color=['red','pink','blue']
-print("my favourite color is "+random.choice(color))        
+name=input("What's your Name : ")
+print("Hello",name)
+feeling=input("How is your mood today? \n")
+if feeling=="good":
+    print("Have a nice day\n")
+elif feeling=="bad":
+    input("Ohhh , What Happened so?\n")
+elif feeling=="happy":
+    input("That's Great , Can i know the reason behind it\n")
+day=input("Can i know what day is today ?\n")
+#day=["monday","tuesday","wednesday","thursday","friday"]
+if day=='saturday'or day=='friday':
+         print("It must be Holiday today!!!\n")
+elif day=='sunday'or day=='monday':
+         print("Its Working day ,hope you wont be late to work\n ")       
 
 Q2
 import math
