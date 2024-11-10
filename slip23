@@ -1,0 +1,70 @@
+Q1
+def th(n,source,target,auxiliary):
+    if n==1:
+        print("move disk 1 from",source," to ",target)
+        return
+    th(n-1,source,auxiliary,target)
+    print("Move dist ",n," from ",source," to ",target)
+    th(n-1,auxiliary,target,source)
+n=4
+th(n,'A','C','B')
+print()
+
+Q2
+def find_value(word,assigned):
+    num=0
+    for char in word:
+        num=num * 10
+        num += assigned[char]
+    return num
+    
+def is_valid_assignment(word1,word2,result,assigned):
+    if assigned[word1[0]] == 0 or assigned[word2[0]] == 0 or assigned[result[0]] == 0:
+        return False
+    return True
+    
+def _solve(word1,word2,result,letters,assigned,solutions):
+    if not letters:
+        if is_valid_assignment(word1,word2,result,assigned):
+            num1=find_value(word1,assigned)
+            num2=find_value(word2,assigned)            
+            num_result=find_value(result,assigned)    
+            if num1+num2==num_result:
+                solutions.append((f'{num1} + {num2} = {num_result}',assigned.copy()))
+        return
+        
+    for num in range(10):
+        if num not in assigned.values():
+            cur_letter=letters.pop()
+            assigned[cur_letter]=num
+            _solve(word1,word2,result,letters,assigned,solutions)
+            assigned.pop(cur_letter)
+            letters.append(cur_letter)
+            
+def solve(word1,word2,result):
+    letters=sorted(set(word1)|set(word2)|set(result))
+    if len(result)> max(len(word1),len(word2)) + 1 or len(letters)>10:
+        print('0 solution')
+        return
+        
+    solutions=[]
+    _solve(word1,word2,result,letters,{},solutions)
+    
+    if solutions:
+        print('\n solution')
+        for soln in solutions:
+            print(f'{soln[0]}\t assignment: {soln[1]}')
+    else:
+        print("no valid solution found.")
+        
+if __name__=='__main__':
+    print('crypt arithmetic puzzle solution')
+    print('format: WORD1 + WORD2 = RESULT')
+    
+    word1=input('enter word1: ').upper() 
+    word2=input('enter word2: ').upper() 
+    result=input('enter result: ').upper()        
+    
+    if not word1.isalpha() or not word2.isalpha() or not result.isalpha():
+        raise TypeError('Inputs should ony conist of alphabets')
+    solve(word1,word2,result)                                                               
