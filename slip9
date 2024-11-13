@@ -2,7 +2,6 @@ Q1
 import heapq
 
 def manhattan_distance(state, goal):
-    """Calculate Manhattan distance between current state and goal."""
     distance = 0
     for i in range(3):
         for j in range(3):
@@ -12,14 +11,12 @@ def manhattan_distance(state, goal):
     return distance
 
 def find_blank(state):
-    """Find the position of the blank (0) tile."""
     for i in range(3):
         for j in range(3):
             if state[i][j] == 0:
                 return i, j
 
 def get_neighbors(state):
-    """Generate possible moves of the blank tile."""
     x, y = find_blank(state)
     neighbors = []
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -32,7 +29,6 @@ def get_neighbors(state):
     return neighbors
 
 def flatten_state(state):
-    """Flatten the 2D state for easier comparison."""
     return [tile for row in state for tile in row]
 
 def a_star(start, goal):
@@ -56,20 +52,17 @@ def a_star(start, goal):
                 
     return False, None
 
-# Define start and goal states
 start = [
     [2, 8, 3],
     [1, 6, 4],
     [7, 0, 5]
 ]
-
 goal = [
     [1, 2, 3],
     [8, 0, 4],
     [7, 6, 5]
 ]
 
-# Solve the puzzle
 found, solution = a_star(start, goal)
 if found:
     print("Solution found:")
