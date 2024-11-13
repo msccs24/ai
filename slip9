@@ -1,3 +1,83 @@
+Q1
+import heapq
+
+def manhattan_distance(state, goal):
+    """Calculate Manhattan distance between current state and goal."""
+    distance = 0
+    for i in range(3):
+        for j in range(3):
+            if state[i][j] != 0:
+                goal_x, goal_y = divmod(goal.index(state[i][j]), 3)
+                distance += abs(goal_x - i) + abs(goal_y - j)
+    return distance
+
+def find_blank(state):
+    """Find the position of the blank (0) tile."""
+    for i in range(3):
+        for j in range(3):
+            if state[i][j] == 0:
+                return i, j
+
+def get_neighbors(state):
+    """Generate possible moves of the blank tile."""
+    x, y = find_blank(state)
+    neighbors = []
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    for dx, dy in directions:
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < 3 and 0 <= ny < 3:
+            new_state = [row[:] for row in state]
+            new_state[x][y], new_state[nx][ny] = new_state[nx][ny], new_state[x][y]
+            neighbors.append(new_state)
+    return neighbors
+
+def flatten_state(state):
+    """Flatten the 2D state for easier comparison."""
+    return [tile for row in state for tile in row]
+
+def a_star(start, goal):
+    goal_flat = flatten_state(goal)
+    start_flat = flatten_state(start)
+    frontier = [(manhattan_distance(start, goal), start, 0)]
+    visited = set()
+    visited.add(tuple(start_flat))
+
+    while frontier:
+        _, current, g_cost = heapq.heappop(frontier)
+        if flatten_state(current) == goal_flat:
+            return True, current
+
+        for neighbor in get_neighbors(current):
+            neighbor_flat = tuple(flatten_state(neighbor))
+            if neighbor_flat not in visited:
+                visited.add(neighbor_flat)
+                priority = g_cost + 1 + manhattan_distance(neighbor, goal)
+                heapq.heappush(frontier, (priority, neighbor, g_cost + 1))
+                
+    return False, None
+
+# Define start and goal states
+start = [
+    [2, 8, 3],
+    [1, 6, 4],
+    [7, 0, 5]
+]
+
+goal = [
+    [1, 2, 3],
+    [8, 0, 4],
+    [7, 6, 5]
+]
+
+# Solve the puzzle
+found, solution = a_star(start, goal)
+if found:
+    print("Solution found:")
+    for row in solution:
+        print(row)
+else:
+    print("No solution found.")
+
 Q2
 print("Water_Jug Problem")
 
